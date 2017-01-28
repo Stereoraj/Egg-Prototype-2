@@ -7,6 +7,12 @@ public class Constants {
 
     // the default size of the viewport window
 
-    public static final float WORLD_WIDTH = 350;
+    public static final float WORLD_WIDTH = 380;
     public static final float WORLD_HEIGHT = 600;
+
+    // the constant values for the basket
+
+    public static final float BASKET_WIDTH = 100;
+    public static final float BASKET_HEIGHT = 30;
+
 }
