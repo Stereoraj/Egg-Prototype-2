@@ -1,6 +1,5 @@
 package com.raj.eggs;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
@@ -16,16 +15,16 @@ public class Basket {
 
     public Basket(int x, int y){
         position = new Vector2(x,y);
-        basketMoveRate = 20;
+        basketMoveRate = 80;
 
         direction = Direction.forward;
     }
 
-    public void update(){
+    public void update(float delta){
         if(direction==Direction.forward)
-            position.x += 20 * Gdx.graphics.getDeltaTime();
+            position.x += basketMoveRate * delta;
         else
-            position.x -= basketMoveRate * Gdx.graphics.getDeltaTime();
+            position.x -= basketMoveRate * delta;
 
         if(position.x >= Constants.WORLD_WIDTH - Constants.BASKET_WIDTH){
             direction = Direction.backward;

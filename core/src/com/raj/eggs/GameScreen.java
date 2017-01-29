@@ -17,6 +17,9 @@ public class GameScreen extends ScreenAdapter {
     ShapeRenderer renderer;
     Camera camera;
     Basket basket;
+    BasketList basketList;
+    Egg egg;
+    CameraManager camManager;
 
     public GameScreen() {
         super();
@@ -25,8 +28,11 @@ public class GameScreen extends ScreenAdapter {
         camera.translate(Constants.WORLD_WIDTH/2,Constants.WORLD_HEIGHT/2,0);
         camera.update();
 
-        basket = new Basket(100,100);
+        //basket = new Basket(100,100);
+        basketList = new BasketList();
+        egg = new Egg();
         renderer = new ShapeRenderer();
+        camManager = new CameraManager(camera,egg);
 
         //basket = new Basket(20,50);
     }
@@ -35,7 +41,10 @@ public class GameScreen extends ScreenAdapter {
     public void render(float delta) {
         super.render(delta);
 
-        basket.update();
+        //basket.update();
+        basketList.update(delta);
+        egg.update(delta);
+        camManager.update(delta);
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -44,10 +53,11 @@ public class GameScreen extends ScreenAdapter {
 
         renderer.setProjectionMatrix(viewport.getCamera().combined);
 
-        renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.circle(Constants.WORLD_WIDTH/2,Constants.WORLD_HEIGHT/2,50,80);
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        //renderer.circle(Constants.WORLD_WIDTH/2,Constants.WORLD_HEIGHT/2,50,80);
         //renderer.rect(Constants.WORLD_WIDTH - 100,50,100,30);
-        basket.render(renderer);
+        egg.render(renderer);
+        basketList.render(renderer);
         renderer.end();
 
 
