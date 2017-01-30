@@ -37,6 +37,11 @@ public class Basket {
         renderer.rect(position.x,position.y,Constants.BASKET_WIDTH,Constants.BASKET_HEIGHT);
     }
 
+    public Vector2 getPosition(){
+        return position;
+    }
+
+
     enum Direction{
         forward,
         backward

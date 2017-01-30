@@ -19,7 +19,7 @@ public class BasketList {
     }
 
     public void init(){
-        for(int i=0;i<10000;i+=100){
+        for(int i=0;i<10000;i+=200){
             basketListArray.add(new Basket(MathUtils.random((int)Constants.WORLD_WIDTH - (int)Constants.BASKET_WIDTH),i));
         }
     }
@@ -39,4 +39,7 @@ public class BasketList {
             basket.render(renderer);
         }
     }
+
+
+
 }

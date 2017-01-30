@@ -30,7 +30,7 @@ public class GameScreen extends ScreenAdapter {
 
         //basket = new Basket(100,100);
         basketList = new BasketList();
-        egg = new Egg();
+        egg = new Egg(basketList);
         renderer = new ShapeRenderer();
         camManager = new CameraManager(camera,egg);
 

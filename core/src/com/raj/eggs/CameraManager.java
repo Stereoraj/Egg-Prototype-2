@@ -14,13 +14,21 @@ public class CameraManager {
         this.camera = camera;
         cameraMaxY = this.camera.position.y;
         this.egg = egg;
+
     }
 
     public void update(float delta){
+        if(egg.getPosition().y>cameraMaxY) {
+            camera.translate(0, egg.getPosition().y - cameraMaxY, 0);
+            camera.update();
+            System.out.println(egg.getPosition().y);
+            System.out.println(camera.position.y);
 
-        camera.translate(0,egg.getPosition().y - cameraMaxY,0);
-        camera.update();
+            cameraMaxY = camera.position.y;
+        }
 
-        cameraMaxY = camera.position.y;
+
     }
+
+
 }
