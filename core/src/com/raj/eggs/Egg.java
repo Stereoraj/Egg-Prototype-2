@@ -13,10 +13,12 @@ public class Egg {
     Vector2 position;
     Movement movement;
     float velocity;
+    float curCamPosition;
 
 
     BasketList basketList;
     int basketNo;
+
 
     // use to check the camera members for the egg reinitiation action
     Camera camera;
@@ -25,6 +27,8 @@ public class Egg {
 
         this.basketList = basketList;
         this.camera = camera;
+
+        curCamPosition = camera.position.y;
 
         // position vector of the egg
         position = new Vector2();
@@ -35,6 +39,8 @@ public class Egg {
         // used to keep the track of which basket the egg is in currently
         // first initialized to the 0th basket
         basketNo = 0;
+
+
 
 
         // first initialize the position of the egg to the 0th basket
@@ -86,6 +92,10 @@ public class Egg {
             this.position.y = (basketList.basketListArray.get(basketNo).getPosition()).y + 28;
         }
 
+       
+
+
+
     }
 
     void eggJump(){
@@ -102,10 +112,13 @@ public class Egg {
     void checkCollision(){
 
         if(this.position.x > basketList.basketListArray.get(basketNo+1).getPosition().x &&
-                this.position.x < basketList.basketListArray.get(basketNo+1).getPosition().x + Constants.BASKET_WIDTH){
+                this.position.x < basketList.basketListArray.get(basketNo+1).getPosition().x + Constants.BASKET_WIDTH) {
 
-            // if the egg collides with the basket then increase the basketNo
-            basketNo++;
+            if (basketNo < 2) {
+                // if the egg collides with the basket then increase the basketNo
+                basketNo++;
+            }else
+            basketList.addAndRemove();
 
             // change the state of the egg to stopping
             movement = Movement.stopping;

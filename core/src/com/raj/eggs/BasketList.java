@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 public class BasketList {
 
     Array<Basket> basketListArray;
+    int basketX;
 
     public BasketList(){
 
@@ -19,8 +20,9 @@ public class BasketList {
     }
 
     public void init(){
-        for(int i=0;i<10000;i+=200){
+        for(int i=0;i<1000;i+=200){
             basketListArray.add(new Basket(MathUtils.random((int)Constants.WORLD_WIDTH - (int)Constants.BASKET_WIDTH),i));
+            basketX = i;
         }
     }
 
@@ -30,6 +32,11 @@ public class BasketList {
         }
 
 
+    }
+
+    public void addAndRemove(){
+        basketListArray.removeIndex(0);
+        basketListArray.add(new Basket(MathUtils.random((int)Constants.WORLD_WIDTH - (int)Constants.BASKET_WIDTH),basketX+=200));
     }
 
     public void render(ShapeRenderer renderer){
