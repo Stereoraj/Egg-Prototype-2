@@ -2,6 +2,7 @@ package com.raj.eggs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
@@ -17,44 +18,58 @@ public class Egg {
     BasketList basketList;
     int basketNo;
 
-    public Egg(BasketList basketList){
-        position = new Vector2();
-        movement = Movement.stopping;
+    // use to check the camera members for the egg reinitiation action
+    Camera camera;
+
+    public Egg(BasketList basketList,Camera camera){
+
         this.basketList = basketList;
+        this.camera = camera;
+
+        // position vector of the egg
+        position = new Vector2();
+
+        // first initialize the movement of the egg to stopping state
+        movement = Movement.stopping;
+
+        // used to keep the track of which basket the egg is in currently
+        // first initialized to the 0th basket
         basketNo = 0;
 
 
-
+        // first initialize the position of the egg to the 0th basket
         this.position.x = (basketList.basketListArray.get(basketNo).getPosition()).x + 25;
         this.position.y = (basketList.basketListArray.get(basketNo).getPosition()).y + 30;
     }
 
-    /*public void update(float delta){
-        position.y+=100*delta;
-    }*/
+
 
     public void render(ShapeRenderer renderer){
+
         renderer.circle(position.x,position.y,20,80);
     }
 
-    public void update(float delta){
+    public void update(){
 
 
-        // bouncing the ball
+
+        // if the movement state of the egg is in the stopping state then check for the key pressed or touched
         if(movement != Movement.moving){
             if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isTouched()) {
 
-                // set the initial value of the velocity
 
+                // when the key is pressed , initialize the velocity in which the egg is to be bounced
                 velocity = Constants.INITIAL_JUMP_VELOCITY;
 
+                // then the state of the egg changes to moving state
                 movement = Movement.moving;
             }
         }
         if(movement == Movement.moving) {
-            ballJump();
+            eggJump();
 
-            // check only if the egg/ball is in the falling direction
+            // check only if the egg/ball is in the falling direction i.e
+            // negative velocity, then check for the collision with the next basket based on the basketNo
             if(velocity<0) {
                 if (this.position.y >= basketList.basketListArray.get(basketNo + 1).getPosition().y + Constants.BASKET_HEIGHT &&
                         this.position.y <= basketList.basketListArray.get(basketNo + 1).getPosition().y + Constants.BASKET_HEIGHT + 20) {
@@ -73,12 +88,12 @@ public class Egg {
 
     }
 
-    void ballJump(){
+    void eggJump(){
 
         velocity += Constants.GRAVITY * Gdx.graphics.getDeltaTime();
         position.y += velocity;
 
-        if(position.y < 0){
+        if(position.y < camera.position.y - (Constants.WORLD_HEIGHT/2)){
             movement = Movement.stopping;
         }
 
@@ -88,7 +103,11 @@ public class Egg {
 
         if(this.position.x > basketList.basketListArray.get(basketNo+1).getPosition().x &&
                 this.position.x < basketList.basketListArray.get(basketNo+1).getPosition().x + Constants.BASKET_WIDTH){
+
+            // if the egg collides with the basket then increase the basketNo
             basketNo++;
+
+            // change the state of the egg to stopping
             movement = Movement.stopping;
 
 

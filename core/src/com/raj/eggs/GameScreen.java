@@ -16,34 +16,42 @@ public class GameScreen extends ScreenAdapter {
     Viewport viewport;
     ShapeRenderer renderer;
     Camera camera;
-    Basket basket;
+
     BasketList basketList;
     Egg egg;
     CameraManager camManager;
 
     public GameScreen() {
-        super();
+
+        // create the viewport of the game with the world width and the height
         viewport = new ExtendViewport(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
+
+        // initializing and positioning the camera to the center of the screen
         camera = viewport.getCamera();
-        camera.translate(Constants.WORLD_WIDTH/2,Constants.WORLD_HEIGHT/2,0);
+        camera.translate(Constants.WORLD_WIDTH/2,0,0);
         camera.update();
 
-        //basket = new Basket(100,100);
+        // the basketList object to manage the list of baskets in the game
         basketList = new BasketList();
-        egg = new Egg(basketList);
+
+        // pass the basketList and Camera reference to the new egg object to check the values
+        // of each during the mechanism of the egg movement
+        egg = new Egg(basketList,camera);
+
+        // the renderer to draw the basic game objects
         renderer = new ShapeRenderer();
+
+        // the camera manager object to move the camera with the gameplay
         camManager = new CameraManager(camera,egg);
 
-        //basket = new Basket(20,50);
     }
 
     @Override
     public void render(float delta) {
-        super.render(delta);
 
-        //basket.update();
+        // perform the updating process of the baskets , eggs and the camera
         basketList.update(delta);
-        egg.update(delta);
+        egg.update();
         camManager.update(delta);
 
         Gdx.gl.glClearColor(0,0,0,1);
@@ -54,12 +62,9 @@ public class GameScreen extends ScreenAdapter {
         renderer.setProjectionMatrix(viewport.getCamera().combined);
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
-        //renderer.circle(Constants.WORLD_WIDTH/2,Constants.WORLD_HEIGHT/2,50,80);
-        //renderer.rect(Constants.WORLD_WIDTH - 100,50,100,30);
-        egg.render(renderer);
-        basketList.render(renderer);
+            egg.render(renderer);
+            basketList.render(renderer);
         renderer.end();
-
 
     }
 
@@ -72,5 +77,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         super.dispose();
+        renderer.dispose();
     }
 }

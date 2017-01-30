@@ -15,7 +15,7 @@ public class Constants {
     public static final float BASKET_WIDTH = 100;
     public static final float BASKET_HEIGHT = 30;
 
-    public static final float GRAVITY = -9.8f;
+    public static final float GRAVITY = -8.8f;
     public static final float INITIAL_JUMP_VELOCITY = 9.0f;
 
 }
