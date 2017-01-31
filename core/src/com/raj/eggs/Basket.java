@@ -13,23 +13,30 @@ public class Basket {
 
     Direction direction;
 
-    public Basket(int x, int y){
+     Constants.BasketType type;
+
+    public Basket(int x, int y, Constants.BasketType type){
         position = new Vector2(x,y);
         basketMoveRate = 80;
+
+
+        this.type = type;
 
         direction = Direction.forward;
     }
 
     public void update(float delta){
-        if(direction==Direction.forward)
-            position.x += basketMoveRate * delta;
-        else
-            position.x -= basketMoveRate * delta;
+        if(type == Constants.BasketType.moving) {
+            if (direction == Direction.forward)
+                position.x += basketMoveRate * delta;
+            else
+                position.x -= basketMoveRate * delta;
 
-        if(position.x >= Constants.WORLD_WIDTH - Constants.BASKET_WIDTH){
-            direction = Direction.backward;
-        }else if(position.x<= 0){
-            direction = Direction.forward;
+            if (position.x >= Constants.WORLD_WIDTH - Constants.BASKET_WIDTH) {
+                direction = Direction.backward;
+            } else if (position.x <= 0) {
+                direction = Direction.forward;
+            }
         }
     }
 
@@ -46,5 +53,7 @@ public class Basket {
         forward,
         backward
     }
+
+
 
 }

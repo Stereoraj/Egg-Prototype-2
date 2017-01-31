@@ -44,14 +44,14 @@ public class Egg {
 
 
         // first initialize the position of the egg to the 0th basket
-        this.position.x = (basketList.basketListArray.get(basketNo).getPosition()).x + 25;
-        this.position.y = (basketList.basketListArray.get(basketNo).getPosition()).y + 30;
+        this.position.x = (basketList.basketListArray.get(basketNo).getPosition()).x + Constants.BASKET_WIDTH/2;
+        this.position.y = (basketList.basketListArray.get(basketNo).getPosition()).y + Constants.BASKET_HEIGHT + 10;
     }
 
 
 
     public void render(ShapeRenderer renderer){
-
+        System.out.println(position.y);
         renderer.circle(position.x,position.y,20,80);
     }
 
@@ -88,12 +88,9 @@ public class Egg {
         }
         else {
 
-            this.position.x = (basketList.basketListArray.get(basketNo).getPosition()).x + 25;
-            this.position.y = (basketList.basketListArray.get(basketNo).getPosition()).y + 28;
+            this.position.x = (basketList.basketListArray.get(basketNo).getPosition()).x + Constants.BASKET_WIDTH/2;
+            this.position.y = (basketList.basketListArray.get(basketNo).getPosition()).y + Constants.BASKET_HEIGHT + 10;
         }
-
-       
-
 
 
     }
@@ -103,7 +100,7 @@ public class Egg {
         velocity += Constants.GRAVITY * Gdx.graphics.getDeltaTime();
         position.y += velocity;
 
-        if(position.y < camera.position.y - (Constants.WORLD_HEIGHT/2)){
+        if(position.y < camera.position.y - (Constants.WORLD_HEIGHT/2) - 100){
             movement = Movement.stopping;
         }
 
@@ -118,7 +115,7 @@ public class Egg {
                 // if the egg collides with the basket then increase the basketNo
                 basketNo++;
             }else
-            basketList.addAndRemove();
+                basketList.addAndRemove();
 
             // change the state of the egg to stopping
             movement = Movement.stopping;

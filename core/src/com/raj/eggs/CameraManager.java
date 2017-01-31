@@ -21,8 +21,6 @@ public class CameraManager {
         if(egg.getPosition().y>cameraMaxY) {
             camera.translate(0, egg.getPosition().y - cameraMaxY, 0);
             camera.update();
-            System.out.println(egg.getPosition().y);
-            System.out.println(camera.position.y);
 
             cameraMaxY = camera.position.y;
         }

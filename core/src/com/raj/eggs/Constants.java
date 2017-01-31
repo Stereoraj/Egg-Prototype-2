@@ -18,4 +18,9 @@ public class Constants {
     public static final float GRAVITY = -8.8f;
     public static final float INITIAL_JUMP_VELOCITY = 9.0f;
 
+    public enum BasketType{
+        moving,
+        stopping
+    }
+
 }
