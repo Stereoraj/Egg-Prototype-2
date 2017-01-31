@@ -54,7 +54,7 @@ public class GameScreen extends ScreenAdapter {
         egg.update();
         camManager.update(delta);
 
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r,Constants.BACKGROUND_COLOR.g,Constants.BACKGROUND_COLOR.b,Constants.BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         viewport.apply();

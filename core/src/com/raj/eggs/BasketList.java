@@ -28,7 +28,7 @@ public class BasketList {
 
     public void init(){
 
-        for(int i=0;i<1000;i+=200){
+        for(int i=0;i<=1000;i+=200){
 
             // this conditional checks helps to prevent from generation of
             // two consecutive stopping basket by checking previously initialized type

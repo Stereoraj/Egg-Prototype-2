@@ -1,6 +1,8 @@
 package com.raj.eggs;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -17,8 +19,20 @@ public class Basket {
 
     public Basket(int x, int y, Constants.BasketType type){
         position = new Vector2(x,y);
-        basketMoveRate = 80;
 
+        // generate the random values for the 4 different speed of the basket
+        basketMoveRate = MathUtils.random(1,4);
+
+        // assign the appropriate basket speed
+        if(basketMoveRate == 1){
+            basketMoveRate = 80;
+        }else if(basketMoveRate == 2){
+            basketMoveRate = 100;
+        }else if(basketMoveRate == 3){
+            basketMoveRate = 120;
+        }else if(basketMoveRate == 4){
+            basketMoveRate = 140;
+        }
 
         this.type = type;
 
@@ -41,6 +55,7 @@ public class Basket {
     }
 
     public void render(ShapeRenderer renderer){
+        renderer.setColor(Color.FIREBRICK);
         renderer.rect(position.x,position.y,Constants.BASKET_WIDTH,Constants.BASKET_HEIGHT);
     }
 
@@ -53,6 +68,8 @@ public class Basket {
         forward,
         backward
     }
+
+
 
 
 

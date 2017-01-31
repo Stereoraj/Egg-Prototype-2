@@ -1,5 +1,7 @@
 package com.raj.eggs;
 
+import com.badlogic.gdx.graphics.Color;
+
 /**
  * Created by stereoHeart on 28/01/2017.
  */
@@ -9,6 +11,10 @@ public class Constants {
 
     public static final float WORLD_WIDTH = 380;
     public static final float WORLD_HEIGHT = 600;
+
+    // color component values
+
+    public static final Color BACKGROUND_COLOR = Color.SKY;
 
     // the constant values for the basket
 
