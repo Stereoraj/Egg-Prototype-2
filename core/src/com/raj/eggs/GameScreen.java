@@ -3,7 +3,10 @@ package com.raj.eggs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -20,6 +23,9 @@ public class GameScreen extends ScreenAdapter {
     BasketList basketList;
     Egg egg;
     CameraManager camManager;
+
+    SpriteBatch batch;
+    BitmapFont font;
 
     public GameScreen() {
 
@@ -44,6 +50,10 @@ public class GameScreen extends ScreenAdapter {
         // the camera manager object to move the camera with the gameplay
         camManager = new CameraManager(camera,egg);
 
+        ////////
+        batch = new SpriteBatch();
+        font = new BitmapFont(Gdx.files.internal("myFont.fnt"));
+
     }
 
     @Override
@@ -62,9 +72,18 @@ public class GameScreen extends ScreenAdapter {
         renderer.setProjectionMatrix(viewport.getCamera().combined);
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
+
             egg.render(renderer);
             basketList.render(renderer);
+
+
         renderer.end();
+
+        font.setColor(Color.BLACK);
+        batch.begin();
+            font.draw(batch,"Score :: " + egg.getScore() + "",10.0f,Constants.WORLD_HEIGHT + 20);
+            font.draw(batch,"Life :: " + egg.getLife() + "",10.0f,Constants.WORLD_HEIGHT - 8);
+        batch.end();
 
     }
 

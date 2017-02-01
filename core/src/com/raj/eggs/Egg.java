@@ -20,6 +20,9 @@ public class Egg {
     BasketList basketList;
     int basketNo;
 
+    int score;
+    int life;
+
 
     // use to check the camera members for the egg reinitiation action
     Camera camera;
@@ -42,6 +45,7 @@ public class Egg {
         basketNo = 0;
 
 
+        life = 6;
 
 
         // first initialize the position of the egg to the 0th basket
@@ -52,7 +56,7 @@ public class Egg {
 
 
     public void render(ShapeRenderer renderer){
-        System.out.println(position.y);
+        System.out.println(score);
         renderer.setColor(Color.YELLOW);
         renderer.circle(position.x,position.y,20,80);
     }
@@ -94,7 +98,9 @@ public class Egg {
             this.position.y = (basketList.basketListArray.get(basketNo).getPosition()).y + Constants.BASKET_HEIGHT + 10;
         }
 
-
+        if(life == 0){
+            Gdx.app.exit();
+        }
     }
 
     void eggJump(){
@@ -104,6 +110,7 @@ public class Egg {
 
         if(position.y < camera.position.y - (Constants.WORLD_HEIGHT/2) - 100){
             movement = Movement.stopping;
+            life--;
         }
 
     }
@@ -122,12 +129,22 @@ public class Egg {
             // change the state of the egg to stopping
             movement = Movement.stopping;
 
+            score+=10;
+
 
         }
     }
 
     public Vector2 getPosition(){
         return position;
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public int getLife(){
+        return life;
     }
 
     enum Movement{
