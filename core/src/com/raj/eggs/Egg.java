@@ -99,6 +99,7 @@ public class Egg {
         }
 
         if(life == 0){
+            Settings.save();
             Gdx.app.exit();
         }
     }

@@ -27,6 +27,8 @@ public class GameScreen extends ScreenAdapter {
     SpriteBatch batch;
     BitmapFont font;
 
+
+
     public GameScreen() {
 
         // create the viewport of the game with the world width and the height
@@ -54,6 +56,10 @@ public class GameScreen extends ScreenAdapter {
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("myFont.fnt"));
 
+        Settings.load();
+
+
+
     }
 
     @Override
@@ -76,14 +82,21 @@ public class GameScreen extends ScreenAdapter {
             egg.render(renderer);
             basketList.render(renderer);
 
-
         renderer.end();
+
+
 
         font.setColor(Color.BLACK);
         batch.begin();
             font.draw(batch,"Score :: " + egg.getScore() + "",10.0f,Constants.WORLD_HEIGHT + 20);
             font.draw(batch,"Life :: " + egg.getLife() + "",10.0f,Constants.WORLD_HEIGHT - 8);
+            font.draw(batch,"High Score :: " + Settings.highScores + "",10.0f,Constants.WORLD_HEIGHT - 36);
         batch.end();
+
+        if(Settings.highScores < egg.getScore()){
+            Settings.highScores = egg.getScore();
+
+        }
 
     }
 
@@ -97,5 +110,6 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         super.dispose();
         renderer.dispose();
+
     }
 }
