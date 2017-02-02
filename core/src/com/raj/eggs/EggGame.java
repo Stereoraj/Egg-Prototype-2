@@ -6,6 +6,7 @@ public class EggGame extends Game {
 
 	@Override
 	public void create() {
-		setScreen(new GameScreen());
+		setScreen(new MainMenuScreen());
+		//setScreen(new GameScreen());
 	}
 }
