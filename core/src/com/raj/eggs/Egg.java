@@ -56,7 +56,7 @@ public class Egg {
 
 
     public void render(ShapeRenderer renderer){
-        System.out.println(score);
+        //System.out.println(score);
         renderer.setColor(Color.YELLOW);
         renderer.circle(position.x,position.y,20,80);
     }
@@ -98,10 +98,6 @@ public class Egg {
             this.position.y = (basketList.basketListArray.get(basketNo).getPosition()).y + Constants.BASKET_HEIGHT + 10;
         }
 
-        if(life == 0){
-            Settings.save();
-            Gdx.app.exit();
-        }
     }
 
     void eggJump(){

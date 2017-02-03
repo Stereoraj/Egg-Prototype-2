@@ -27,9 +27,13 @@ public class GameScreen extends ScreenAdapter {
     SpriteBatch batch;
     BitmapFont font;
 
+    EggGame eggGame;
 
 
-    public GameScreen() {
+
+    public GameScreen(EggGame eggGame) {
+
+        this.eggGame = eggGame;
 
         // create the viewport of the game with the world width and the height
         viewport = new ExtendViewport(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
@@ -96,6 +100,11 @@ public class GameScreen extends ScreenAdapter {
         if(Settings.highScores < egg.getScore()){
             Settings.highScores = egg.getScore();
 
+        }
+
+        if(egg.getLife() == 0){
+            Settings.save();
+            eggGame.setScreen(new MainMenuScreen(eggGame));
         }
 
     }

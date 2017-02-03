@@ -55,7 +55,7 @@ public class Basket {
     }
 
     public void render(ShapeRenderer renderer){
-        renderer.setColor(Color.FIREBRICK);
+        renderer.setColor(Color.BROWN);
         renderer.rect(position.x,position.y,Constants.BASKET_WIDTH,Constants.BASKET_HEIGHT);
     }
 
