@@ -97,16 +97,15 @@ public class GameScreen extends ScreenAdapter {
             //font.draw(batch,"High Score :: " + Settings.highScores + "",10.0f,Constants.WORLD_HEIGHT/2);
         batch.end();
 
-        for(int i=2;i>=0;i--) {
-            if (Settings.highScores[i] < egg.getScore()) {
-                Settings.highScores[i] = egg.getScore();
-                break;
-            }
-        }
-
-
-
         if(egg.getLife() == 0){
+
+            for(int i=0;i<3;i++) {
+                if (Settings.highScores[i] < egg.getScore()) {
+                    Settings.highScores[i] = egg.getScore();
+                    System.out.println(Settings.highScores[i]);
+                    break;
+                }
+            }
             Settings.save();
             eggGame.setScreen(new MainMenuScreen(eggGame));
         }

@@ -75,9 +75,9 @@ public class ScoresScreen extends ScreenAdapter implements InputProcessor {
         batch.begin();
         Settings.titleFont.draw(batch,"HighScores",30,580);
 
-        Settings.textFont.draw(batch, Settings.highScores[2] + "", Constants.WORLD_WIDTH / 2 - 10, 438);
+        Settings.textFont.draw(batch, Settings.highScores[0] + "", Constants.WORLD_WIDTH / 2 - 10, 438);
         Settings.textFont.draw(batch, Settings.highScores[1] + "", Constants.WORLD_WIDTH / 2 - 10, 348);
-        Settings.textFont.draw(batch, Settings.highScores[0] + "", Constants.WORLD_WIDTH / 2 - 10, 258);
+        Settings.textFont.draw(batch, Settings.highScores[2] + "", Constants.WORLD_WIDTH / 2 - 10, 258);
 
         Settings.textFont.draw(batch,"RESET",135,142);
         Settings.textFont.draw(batch,"BACK",135,62);

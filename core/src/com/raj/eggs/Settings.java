@@ -26,6 +26,8 @@ public class Settings {
             }
 
 
+
+
         }catch(Exception e){}
 
         textFont = new BitmapFont(Gdx.files.internal("myFont.fnt"));
@@ -36,25 +38,20 @@ public class Settings {
         try{
             FileHandle fileHandle = Gdx.files.external(filename);
 
-            fileHandle.writeString(Integer.toString(highScores[0]),false);
+            fileHandle.writeString(Integer.toString(highScores[0]) + "\n",false);
 
             for(int i=1;i<3;i++) {
-                fileHandle.writeString(Integer.toString(highScores[i]), true);
+                fileHandle.writeString(Integer.toString(highScores[i]) + "\n", true);
             }
         }catch(Exception ex){}
     }
 
     public static void reset(){
-        try{
-            FileHandle fileHandle = Gdx.files.external(filename);
 
-            fileHandle.writeString(Integer.toString(0),false);
-
-            for(int i=1;i<3;i++) {
-                fileHandle.writeString(Integer.toString(0), true);
-            }
-        }catch(Exception ex){}
-
+        for(int i=0;i<3;i++){
+            highScores[i] = 0;
+        }
+        save();
     }
 
 
