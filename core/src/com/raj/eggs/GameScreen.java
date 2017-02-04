@@ -5,10 +5,9 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
@@ -25,7 +24,7 @@ public class GameScreen extends ScreenAdapter {
     CameraManager camManager;
 
     SpriteBatch batch;
-    BitmapFont font;
+
 
     EggGame eggGame;
 
@@ -36,7 +35,7 @@ public class GameScreen extends ScreenAdapter {
         this.eggGame = eggGame;
 
         // create the viewport of the game with the world width and the height
-        viewport = new ExtendViewport(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
+        viewport = new StretchViewport(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
 
         // initializing and positioning the camera to the center of the screen
         camera = viewport.getCamera();
@@ -58,9 +57,9 @@ public class GameScreen extends ScreenAdapter {
 
         ////////
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal("myFont.fnt"));
 
-        Settings.load();
+
+
 
 
 
@@ -89,18 +88,23 @@ public class GameScreen extends ScreenAdapter {
         renderer.end();
 
 
+        batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        font.setColor(Color.BLACK);
+        Settings.textFont.setColor(Color.BLACK);
         batch.begin();
-            font.draw(batch,"Score :: " + egg.getScore() + "",10.0f,Constants.WORLD_HEIGHT + 20);
-            font.draw(batch,"Life :: " + egg.getLife() + "",10.0f,Constants.WORLD_HEIGHT - 8);
-            font.draw(batch,"High Score :: " + Settings.highScores + "",10.0f,Constants.WORLD_HEIGHT - 36);
+            Settings.textFont.draw(batch,"Score :: " + egg.getScore() + "",10.0f,camera.position.y + Constants.WORLD_HEIGHT/2 - 0);
+            Settings.textFont.draw(batch,"Life    :: " + egg.getLife() + "",10.0f,camera.position.y + Constants.WORLD_HEIGHT/2 - 30);
+            //font.draw(batch,"High Score :: " + Settings.highScores + "",10.0f,Constants.WORLD_HEIGHT/2);
         batch.end();
 
-        if(Settings.highScores < egg.getScore()){
-            Settings.highScores = egg.getScore();
-
+        for(int i=2;i>=0;i--) {
+            if (Settings.highScores[i] < egg.getScore()) {
+                Settings.highScores[i] = egg.getScore();
+                break;
+            }
         }
+
+
 
         if(egg.getLife() == 0){
             Settings.save();

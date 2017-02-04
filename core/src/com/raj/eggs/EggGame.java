@@ -6,6 +6,8 @@ public class EggGame extends Game {
 
 	@Override
 	public void create() {
+		Settings.load();
+		System.out.println("loaded");
 		setScreen(new MainMenuScreen(this));
 		//setScreen(new GameScreen());
 		//showMenuScreen();
