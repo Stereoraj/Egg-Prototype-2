@@ -15,34 +15,38 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 /**
  * Created by stereoHeart on 04/02/2017.
  */
-public class ScoresScreen extends ScreenAdapter implements InputProcessor {
+public class GameScore extends ScreenAdapter implements InputProcessor{
+
     EggGame eggGame;
-
-    SpriteBatch batch;
     ShapeRenderer renderer;
-
+    SpriteBatch batch;
     Viewport viewport;
 
-    Rectangle resetBounds;
-    Rectangle backBounds;
+    Rectangle menuBounds;
 
-    public ScoresScreen(EggGame eggGame){
+    String msg;
+    int score;
+
+    public GameScore(EggGame eggGame ,String msg, int score) {
+        super();
         this.eggGame = eggGame;
+
+        this.msg = msg;
+        this.score = score;
     }
 
     @Override
     public void show() {
         super.show();
 
-        batch = new SpriteBatch();
         renderer = new ShapeRenderer();
-
-        resetBounds = new Rectangle(100,100,180,50);
-        backBounds = new Rectangle(100,20,180,50);
+        batch = new SpriteBatch();
 
         viewport = new StretchViewport(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
         viewport.getCamera().translate(Constants.WORLD_WIDTH/2,Constants.WORLD_HEIGHT/2,0);
         viewport.getCamera().update();
+
+        menuBounds = new Rectangle(90,150,200,50);
 
         Gdx.input.setInputProcessor(this);
 
@@ -52,40 +56,29 @@ public class ScoresScreen extends ScreenAdapter implements InputProcessor {
     public void render(float delta) {
         super.render(delta);
 
-        viewport.apply();
-
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r,Constants.BACKGROUND_COLOR.g,Constants.BACKGROUND_COLOR.b,Constants.BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderer.setProjectionMatrix(viewport.getCamera().combined);
+        viewport.apply();
 
+        renderer.setProjectionMatrix(viewport.getCamera().combined);
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(Color.YELLOW);
-        renderer.circle(Constants.WORLD_WIDTH/2,430,40,80);
-        renderer.circle(Constants.WORLD_WIDTH/2,340,40,80);
-        renderer.circle(Constants.WORLD_WIDTH/2,250,40,80);
-
+        renderer.circle(Constants.WORLD_WIDTH/2,Constants.WORLD_HEIGHT/2 +30,60,80);
         renderer.setColor(Color.BROWN);
-        renderer.rect(100,100,180,50);
-        renderer.rect(100,20,180,50);
+        renderer.rect(90,150,200,50);
         renderer.end();
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
-
         batch.begin();
         Settings.titleFont.setColor(Color.FOREST);
-        Settings.titleFont.draw(batch,"HighScores",30,580);
-
+        Settings.titleFont.draw(batch,msg,30,500);
         Settings.textFont.setColor(Color.FIREBRICK);
-        Settings.textFont.draw(batch, Settings.highScores[0] + "", Constants.WORLD_WIDTH / 2 - 10, 438);
-        Settings.textFont.draw(batch, Settings.highScores[1] + "", Constants.WORLD_WIDTH / 2 - 10, 348);
-        Settings.textFont.draw(batch, Settings.highScores[2] + "", Constants.WORLD_WIDTH / 2 - 10, 258);
-
+        Settings.textFont.draw(batch,score + "",160,350);
         Settings.textFont.setColor(Color.WHITE);
-        Settings.textFont.draw(batch,"RESET",135,142);
-        Settings.textFont.draw(batch,"BACK",135,62);
-
+        Settings.textFont.draw(batch,"MENU",135,190);
         batch.end();
+
 
     }
 
@@ -100,6 +93,11 @@ public class ScoresScreen extends ScreenAdapter implements InputProcessor {
     @Override
     public void hide() {
         super.hide();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
     }
 
     @Override
@@ -125,13 +123,15 @@ public class ScoresScreen extends ScreenAdapter implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         Vector2 point = new Vector2();
+
         viewport.unproject(point.set(Gdx.input.getX(),Gdx.input.getY()));
 
-        if(resetBounds.contains(point.x,point.y)){
-            Settings.reset();
-        }else if(backBounds.contains(point.x,point.y)){
+        if(menuBounds.contains(point.x,point.y)){
+            Gdx.input.setInputProcessor(null);
             eggGame.setScreen(new MainMenuScreen(eggGame));
         }
+
+
         return false;
     }
 

@@ -9,6 +9,7 @@ public class EggGame extends Game {
 		Settings.load();
 		System.out.println("loaded");
 		setScreen(new MainMenuScreen(this));
+		//setScreen(new GameScore(this,"your score"));
 		//setScreen(new GameScreen());
 		//showMenuScreen();
 	}

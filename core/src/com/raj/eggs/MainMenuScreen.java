@@ -84,6 +84,7 @@ public class MainMenuScreen extends ScreenAdapter implements InputProcessor {
         renderer.rect(100,160,180,50);
         renderer.end();
 
+        batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
             Settings.titleFont.setColor(Color.FOREST);
             Settings.titleFont.draw(batch,"EGGS",110,570);
